@@ -11,7 +11,7 @@ def main():
     while lan not in ["es", "en"]:
         lan = input(Fore.YELLOW + "Choose between es or en: "+ Fore.RESET).lower()
     
-    while 1:
+    while True:
         game = input(messages[lan]["choose_game"]).lower()
 
         if game in ["hangman", "ahorcado"]:

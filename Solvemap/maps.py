@@ -38,12 +38,68 @@ maps = {
 
     "4":
     [
-        "WWWWWWWWWWWWWWWWWWWWWWWWWWW",
-        "WP              EWWWWWWWWWW",
-        "WWWWWWWWW WWGWWWWWWWWWWWWWW",
-        "W   L     W               W",
-        "W         WWWWWWWW        W",
-        "W         W   C     WWWWWWW",
-        "WWWWWWWWWWWWWWWWWWWWWWWWWWW"
+        "WWWWWWWWWWWWWWWWWWWW",
+        "WP              EWWW",
+        "WWWWWWWWW WWGWWWWWWW",
+        "W   L     W        W",
+        "W         WWWWWWWW W",
+        "W         W   C    W",
+        "WWWWWWWWWWWWWWWWWWWW"
+    ],
+
+    "player": 
+    [
+        "WWWWWW",
+        "WC  EW",
+        "WWWWWW",
+    ],
+
+    "coin":
+    [
+        "WWWWWW",
+        "WP  EW",
+        "WWWWWW",
+    ],
+    
+    "exit":
+    [
+        "WWWWWW",
+        "WP  CW",
+        "WWWWWW",
+    ],
+    
+    "empty": [],
+
+    "size":
+    [
+        "WWWWWWWW",
+        "WP  CE W",
+        "W        W",
+        "WWWWWWWW",
+    ],
+
+    "close":
+    [
+        "WWWW WW",
+        "W PCE W",
+        "WWWWWWW"
+    ],
+
+    "unsolvable":
+    [
+        "WWWWWWWWWW",
+        "W W  L   W",
+        "WWW   P  W",
+        "WWWWWWWWWW",
+        "W  C    GW",
+        "W       EW",
+        "WWWWWWWWWW"
+    ],
+
+    "minimap":
+    [
+        "WWWWWWW",
+        "WPLGCEW",
+        "WWWWWWW"
     ]
 }
