@@ -15,7 +15,7 @@ maps = {
         "W P   C    W",
         "W WWWWWW W W",
         "W W      W W",
-        "W W   C   W ",
+        "W W   C   WW",
         "W W WWWWwWWW",
         "WW    C W EW",
         "W WWW WWWW W",

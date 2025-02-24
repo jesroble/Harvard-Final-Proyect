@@ -26,13 +26,15 @@ def setup_screen(game_map, tile_size):
 
 def solvemap(lan):
 
-    tile_size = 32
+    tile_size = 48
     game_map = get_map(lan)
     
     
     pygame.init()
     pos = init_pos(game_map)
-    check_map(lan, game_map,pos)
+    if not check_map (lan, game_map,pos):
+        pygame.quit()
+        sys.exit()
     screen = setup_screen(game_map, tile_size)
     sprites = init_sprites(lan)     #load sprites into image
    

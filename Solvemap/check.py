@@ -64,29 +64,47 @@ def check_values(lan, game_map):
 
 
 def solvable(game_map, x, y, coins, gate_open, visited):
+    # Comprobación de límites
+    if x < 0 or x >= len(game_map[0]) or y < 0 or y >= len(game_map):
+        return False
 
-    if x < 0 or x >= len(game_map[0]) or y < 0 or y >= len(game_map): #out of limits
+    # Si es un muro, no se puede pasar.
+    if game_map[y][x] == "W":
         return False
-    if game_map[y][x] == "W" or (x, y) in visited: #wall
+
+    # Si es una puerta cerrada, no se puede pasar.
+    if game_map[y][x] == "G" and not gate_open:
         return False
-    if ((game_map[y][x] == "G" and gate_open == False)
-        or (game_map[y][x] == "E" and len(coins) != 0)): #gate closed or exit closed
-            return False    
-    if game_map[y][x] == "C": #pick coin
-        if [x, y] in coins:
-            coins = coins.copy()
-            coins.remove([x, y])
-    if game_map[y][x] == "L": #open gates
-        gate_open = True
-    if game_map[y][x] == "E" and len(coins) == 0: #win
+
+    # Si es la salida pero aún quedan monedas, no se puede salir.
+    if game_map[y][x] == "E" and len(coins) != 0:
+        return False
+
+    # Creamos un estado que incluya la posición, el estado de la puerta
+    # y la lista de monedas restantes convertida en una tupla ordenada.
+    state = (x, y, tuple(sorted(tuple(c) for c in coins)), gate_open)
+    if state in visited:
+        return False
+    visited.add(state)
+
+    # Si la celda es la palanca, se abre la puerta para las siguientes llamadas.
+    new_gate_open = gate_open or (game_map[y][x] == "L")
+    
+    # Crear una copia del estado de monedas para la recursión.
+    new_coins = coins.copy()
+    if game_map[y][x] == "C" and [x, y] in new_coins:
+        new_coins.remove([x, y])
+    
+    # Si es la salida y ya no quedan monedas, se encontró un camino.
+    if game_map[y][x] == "E" and len(new_coins) == 0:
         return True
-    visited = visited.copy()
-    visited.add((x, y))
 
-    return (solvable(game_map, x + 1, y, coins, gate_open, visited) or
-        solvable(game_map, x - 1, y, coins, gate_open, visited) or
-        solvable(game_map, x, y + 1, coins, gate_open, visited) or
-        solvable(game_map, x, y - 1, coins, gate_open, visited))
+    # Explorar las 4 direcciones con el estado actualizado
+    return (solvable(game_map, x + 1, y, new_coins, new_gate_open, visited) or
+            solvable(game_map, x - 1, y, new_coins, new_gate_open, visited) or
+            solvable(game_map, x, y + 1, new_coins, new_gate_open, visited) or
+            solvable(game_map, x, y - 1, new_coins, new_gate_open, visited))
+
 
 def check_map(lan, game_map, pos):
 
