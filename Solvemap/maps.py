@@ -41,8 +41,8 @@ maps = {
         "WWWWWWWWWWWWWWWWWWWW",
         "WP              EWWW",
         "WWWWWWWWW WWGWWWWWWW",
-        "W   L     W        W",
-        "W         WWWWWWWW W",
+        "W         W        W",
+        "W   L     WWWWWWWW W",
         "W         W   C    W",
         "WWWWWWWWWWWWWWWWWWWW"
     ],

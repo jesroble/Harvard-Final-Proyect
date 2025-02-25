@@ -6,6 +6,7 @@ from Solvemap.maps import maps
 from Solvemap.check import check_map
 from Solvemap.solve_text import messages
 from Solvemap.sources import init_sprites, init_pos, handle_input, draw_game
+from Solvemap.enemies import move_enemies
 
 init()
 
@@ -57,6 +58,7 @@ def solvemap(lan):
             new_x = pos["player"][0] + dx
             new_y = pos["player"][1] + dy
 
+        pos["enemies"] = move_enemies(game_map, pos["enemies"])
         if 0 <= new_x < len(game_map[0]) and 0 <= new_y < len(game_map):
             if game_map[new_y][new_x] != 'W':
                 temp = pos["player"]               #copy current position to go back if error

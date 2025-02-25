@@ -8,6 +8,28 @@ from Solvemap.maps import maps
 
 init()
 
+def init_pos(game_map):
+    
+    positions = {"player": None, "lever": None, 
+                 "gate": [], "coin": [], "enemies": [], "exit": None}
+    
+    for y, row in enumerate(game_map):
+        for x, char in enumerate(row):
+            if char == 'P':
+                positions["player"] = [x, y]
+            elif char == 'G':
+                positions["gate"].append([x, y])
+            elif char == 'L':
+                positions["lever"] = [x, y]
+            elif char == 'C':
+                positions["coin"].append([x, y])
+            elif char == 'e':
+                positions["enemies"].append([x, y])
+            elif char == 'E':
+                positions["exit"] = [x, y]
+    return positions
+
+
 def init_sprites(lan):
 
     base_path = os.path.dirname(os.path.abspath(__file__))
@@ -29,25 +51,6 @@ def init_sprites(lan):
     except pygame.error as what:
         print(messages[lan]["sprite_error"], what)
         sys.exit()
-
-def init_pos(game_map):
-    
-    positions = {"player": None, "lever": None, 
-                 "gate": [], "coin": [], "exit": None}
-    
-    for y, row in enumerate(game_map):
-        for x, char in enumerate(row):
-            if char == 'P':
-                positions["player"] = [x, y]
-            elif char == 'G':
-                positions["gate"].append([x, y])
-            elif char == 'L':
-                positions["lever"] = [x, y]
-            elif char == 'C':
-                positions["coin"].append([x, y])
-            elif char == 'E':
-                positions["exit"] = [x, y]
-    return positions
 
 def handle_input():
     dx, dy = 0, 0

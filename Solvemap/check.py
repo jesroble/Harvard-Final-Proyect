@@ -64,42 +64,39 @@ def check_values(lan, game_map):
 
 
 def solvable(game_map, x, y, coins, gate_open, visited):
-    # Comprobación de límites
+    # limits
     if x < 0 or x >= len(game_map[0]) or y < 0 or y >= len(game_map):
         return False
-
-    # Si es un muro, no se puede pasar.
     if game_map[y][x] == "W":
         return False
-
-    # Si es una puerta cerrada, no se puede pasar.
+    # gate closed
     if game_map[y][x] == "G" and not gate_open:
         return False
 
-    # Si es la salida pero aún quedan monedas, no se puede salir.
+    # exit whit coins left
     if game_map[y][x] == "E" and len(coins) != 0:
         return False
 
-    # Creamos un estado que incluya la posición, el estado de la puerta
-    # y la lista de monedas restantes convertida en una tupla ordenada.
+    # Creates a state for each branch and tuples the list of coins, avoiding
+    # false negatives due to its immutable position
     state = (x, y, tuple(sorted(tuple(c) for c in coins)), gate_open)
     if state in visited:
         return False
     visited.add(state)
 
-    # Si la celda es la palanca, se abre la puerta para las siguientes llamadas.
+    # opens the gate
     new_gate_open = gate_open or (game_map[y][x] == "L")
     
-    # Crear una copia del estado de monedas para la recursión.
+    # copy coins and pick them
     new_coins = coins.copy()
     if game_map[y][x] == "C" and [x, y] in new_coins:
         new_coins.remove([x, y])
     
-    # Si es la salida y ya no quedan monedas, se encontró un camino.
+    # win if exits whit all coins picked
     if game_map[y][x] == "E" and len(new_coins) == 0:
         return True
 
-    # Explorar las 4 direcciones con el estado actualizado
+    # recursively moves the player in 4 directions
     return (solvable(game_map, x + 1, y, new_coins, new_gate_open, visited) or
             solvable(game_map, x - 1, y, new_coins, new_gate_open, visited) or
             solvable(game_map, x, y + 1, new_coins, new_gate_open, visited) or
@@ -124,5 +121,3 @@ def check_map(lan, game_map, pos):
         return False
     
     return True
-
-
