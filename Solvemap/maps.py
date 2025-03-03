@@ -47,6 +47,41 @@ maps = {
         "WWWWWWWWWWWWWWWWWWWW"
     ],
 
+    "5":
+    [
+    "WWWWWWWWWWWWWWWW",
+    "WWWWWW      PWWW",
+    "WWWWWW WWWWWWWWW",
+    "W             EW",
+    "W      WWWWWWWWW",
+    "W      W   C   W",
+    "W  e           W",
+    "WWWWWWWWWWWWWWWW"
+    ],
+
+    "6":
+    [
+    "WWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWP  WW",
+    "W              EW",
+    "W   W   e WWWWWWW",
+    "W   e     W   C W",
+    "W  e  W   G     W",
+    "W    L   WW     W",
+    "WWWWWWWWWWWWWWWWW"
+    ],
+
+    "7":
+    [
+    "WWWWWWWWWWWWWWW",
+    "W          PGGW",
+    "W W e  WW   GEW",
+    "W C   e  W  GGW",
+    "W e  W  C  e  W",
+    "W  CCG  WW L  W",
+    "WWWWWWWWWWWWWWW"
+    ],
+
     "player": 
     [
         "WWWWWW",

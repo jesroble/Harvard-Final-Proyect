@@ -40,6 +40,7 @@ def check_values(lan, game_map):
     p_count = 0
     c_count = 0
     e_count = 0
+    en_count = 0
 
     for y, row in enumerate(game_map):
         for x, char in enumerate(row):
@@ -49,6 +50,8 @@ def check_values(lan, game_map):
                 c_count += 1
             if char == "E":
                 e_count += 1
+            if char == "e":
+                en_count += 1
 
     if p_count != 1:
         print(messages[lan]["error_player"])
@@ -58,6 +61,9 @@ def check_values(lan, game_map):
         return False
     if e_count != 1:
         print(messages[lan]["error_exit"])
+        return False
+    if en_count > 4:
+        print(messages[lan]["max_enemies"])
         return False
     
     return True

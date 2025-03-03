@@ -27,6 +27,9 @@ def init_pos(game_map):
                 positions["enemies"].append([x, y])
             elif char == 'E':
                 positions["exit"] = [x, y]
+    
+    #sort enemies from top to bottom or from left to right in case of draw
+    positions["enemies"].sort(key=lambda pos: (pos[1], pos[0]))
     return positions
 
 
@@ -38,7 +41,7 @@ def init_sprites(lan):
     try:
         return {
         "player": pygame.image.load(os.path.join(img_path, "player.png")).convert_alpha(),
-       # enemie_img = pygame.image.load("./images/enemie.png").convert_alpha()
+        "enemies": pygame.image.load(os.path.join(img_path, "enemies.png")).convert_alpha(),
         "wall": pygame.image.load(os.path.join(img_path, "wall.png")).convert_alpha(),
         "floor": pygame.image.load(os.path.join(img_path, "floor.png")).convert_alpha(),
         "coin": pygame.image.load(os.path.join(img_path, "coin.png")).convert_alpha(),
@@ -71,7 +74,7 @@ def handle_input():
     return dx, dy  
 
 
-def draw_game(game_map, tile_size, screen, sprites, gate_open, coin, player_pos):
+def draw_game(game_map, tile_size, screen, sprites, gate_open, coin, player_pos, enemies_pos):
 
     screen.fill((0, 0, 0)) #fills the screen in black
     for y, row in enumerate(game_map): #fills the map with sprites
@@ -98,7 +101,7 @@ def draw_game(game_map, tile_size, screen, sprites, gate_open, coin, player_pos)
                         screen.blit(sprites["coin"], pos)
                     else:
                         screen.blit(sprites["floor"], pos)
-
+                
                 elif char == 'E':   
                     if len(coin) == 0:
                         screen.blit(sprites["exit_open"], pos) #exit open only if all coins are taken
@@ -106,4 +109,7 @@ def draw_game(game_map, tile_size, screen, sprites, gate_open, coin, player_pos)
                         screen.blit(sprites["exit_closed"], pos)
 
     screen.blit(sprites["player"], (player_pos[0] * tile_size, player_pos[1] * tile_size))
+    for i in range(len(enemies_pos)):
+        screen.blit(sprites["enemies"], (enemies_pos[i][0] * tile_size, enemies_pos[i][1] * tile_size))
+
     pygame.display.flip()

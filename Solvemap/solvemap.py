@@ -1,3 +1,4 @@
+import random
 import pygame
 import sys
 from colorama import Fore, init
@@ -26,66 +27,63 @@ def setup_screen(game_map, tile_size):
     return screen
 
 def solvemap(lan):
-
     tile_size = 48
     game_map = get_map(lan)
-    
-    
     pygame.init()
     pos = init_pos(game_map)
-    if not check_map (lan, game_map,pos):
+    if not check_map(lan, game_map, pos):
         pygame.quit()
         sys.exit()
     screen = setup_screen(game_map, tile_size)
-    sprites = init_sprites(lan)     #load sprites into image
-   
-    #set clock and start running
+    sprites = init_sprites(lan)
+    
     clock = pygame.time.Clock()
     running = True
     gate_open = False
+    enemies_moveset = 1
+    i = 0
 
     while running:
-        clock.tick(60) #limit 60fps
-
-        for event in pygame.event.get(): #control event
+        clock.tick(60)
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-    
-        dx, dy = handle_input() #handle keyboard
+
+        dx, dy = handle_input()
         new_x, new_y = pos["player"]
 
         if dx != 0 or dy != 0:
             new_x = pos["player"][0] + dx
             new_y = pos["player"][1] + dy
 
-        pos["enemies"] = move_enemies(game_map, pos["enemies"])
-        if 0 <= new_x < len(game_map[0]) and 0 <= new_y < len(game_map):
-            if game_map[new_y][new_x] != 'W':
-                temp = pos["player"]               #copy current position to go back if error
-                pos["player"] = [new_x, new_y]
+            if 0 <= new_x < len(game_map[0]) and 0 <= new_y < len(game_map):
+                if game_map[new_y][new_x] != 'W':
+                    temp = pos["player"]
+                    pos["player"] = [new_x, new_y]
 
-                if [new_x, new_y] in pos["coin"]:
-                    pos["coin"].remove([new_x, new_y])
+                    if [new_x, new_y] in pos["enemies"]:
+                        print(messages[lan]["enemy"])
+                        pygame.quit()
+                        sys.exit()
+                    if [new_x, new_y] in pos["coin"]:
+                        pos["coin"].remove([new_x, new_y])
+                    if pos["lever"] == [new_x, new_y]:
+                        gate_open = True
+                    if [new_x, new_y] in pos["gate"] and not gate_open:
+                        pos["player"] = temp
+                    if pos["exit"] == [new_x, new_y]:
+                        if len(pos["coin"]) == 0:
+                            print(messages[lan]["win"])
+                            running = False
+                        else:
+                            print(messages[lan]["pick_coins"])
+                            pos["player"] = temp
 
-                if pos["lever"] == [new_x, new_y]:
-                    gate_open = True        #open the gate
+                pos["enemies"] = move_enemies(game_map, pos["enemies"])
+            pygame.time.delay(100)
 
-                if [new_x, new_y] in pos["gate"] and gate_open == False:
-                    pos["player"] = temp       #restores the previous position if gate closed
-
-                if pos["exit"] == [new_x, new_y]:
-                    if len(pos["coin"]) == 0:
-                        print(messages[lan]["win"])
-                        running = False
-                    else:
-                        print(messages[lan]["cannot_exit"])
-                        pos["player"] = temp       #restores the previous position if exit closed
-            
-            pygame.time.delay(100) 
-        
-        draw_game(game_map, tile_size, screen, sprites, gate_open,
-                  pos["coin"], pos["player"])
-
+        draw_game(game_map, tile_size, screen, sprites, gate_open, pos["coin"], pos["player"], pos["enemies"])
     pygame.quit()
     sys.exit()
+
             

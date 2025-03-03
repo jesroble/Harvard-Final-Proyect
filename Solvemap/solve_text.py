@@ -14,8 +14,10 @@ messages = {
         "error_player": Fore.RED + "Error: there must be one player" + Fore.RESET,
         "error_coin": Fore.RED + "Error: there must be at least one coin" + Fore.RESET,
         "error_exit": Fore.RED + "Error: there must be one exit" + Fore.RESET,
+        "max_enemies": Fore.RED + "Error: there must be maximum 4 enemies" + Fore.RESET,
         "unsolvable": Fore.RED + "Error: map is unsolvable" + Fore.RESET,
         "sprite_error": Fore.RED + "Error: sprite not found" + Fore.RESET,
+        "enemy": Fore.MAGENTA + "Game over! You touched an enemie" + Fore.RESET,
         "win": Fore.GREEN + "\nCongratulations! You solved the map" + Fore.RESET,
         "pick_coins": Fore.MAGENTA + "Pick all coins before exit" + Fore.RESET
     },
@@ -31,8 +33,10 @@ messages = {
         "error_player": Fore.RED + "Error: debe haber un jugador" + Fore.RESET,
         "error_coin": Fore.RED + "Error: debe haber al menos una moneda" + Fore.RESET,
         "error_exit": Fore.RED + "Error: debe haber una salida" + Fore.RESET,
+        "max_enemies": Fore.RED + "Error: debe hacer 4 enemigos como maximo" + Fore.RESET,
         "unsolvable": Fore.RED + "Error: el mapa no tiene solución" + Fore.RESET,
         "sprite_error": Fore.RED + "Error: sprite no encontrado" + Fore.RESET,
+        "enemy": Fore.MAGENTA + "¡Fin de la partida! Has tocado a un enemigo" + Fore.RESET,
         "win": Fore.GREEN + "\n¡Felicidades! Has resuelto el mapa" + Fore.RESET,
         "pick_coins": Fore.MAGENTA + "Recoge todas las monedas antes de salir" + Fore.RESET
     }
